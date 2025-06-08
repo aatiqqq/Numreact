@@ -1,5 +1,5 @@
 
-# 🐐 Discord Custom Emoji Reaction Bot
+# 🐄 Discord Custom Emoji Reaction Bot
 
 A lightweight and fun Discord bot built using Python and `discord.py` that reacts to digit-only messages with a user-defined emoji. Originally created by **Muhammad Rahim** and **Aatiq**.
 
