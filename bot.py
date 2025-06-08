@@ -19,7 +19,7 @@ async def on_message(message):
         return
 
     if message.content.isdigit():
-        await message.add_reaction('🐄')
+        await message.add_reaction('🐪 ')
 
     await bot.process_commands(message)
 
