@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 from keep_alive import keep_alive
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -27,3 +28,17 @@ async def on_message(message):
 load_dotenv()
 keep_alive()
 bot.run(os.getenv('DISCORD_TOKEN'))  # Load token from environment variable
+
+port = int(os.environ.get('PORT', '8080'))
+
+class SimpleHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is running!")
+
+if __name__ == "__main__":
+    server_address = ('', port)  # '' means listen on all interfaces
+    httpd = HTTPServer(server_address, SimpleHandler)
+    print(f"🌍 Fake server running on port {port}")
+    httpd.serve_forever()
