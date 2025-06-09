@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands
@@ -20,10 +21,19 @@ async def on_message(message):
 
     if message.content.isdigit():
         await message.add_reaction('🐪')
+    
+    content = message.content.strip()
+    if re.match(r'^[\d\s+\-*/().]+$', content):
+        try:
+            expr = content.replace(' ', '')
+            result = eval(expr, {"__builtins__": {}}, {})
+            if result is not None and result == int(result):
+                await message.add_reaction('🐪')
+        except:
+            pass
 
     await bot.process_commands(message)
 
-
 load_dotenv()
 keep_alive()
-bot.run(os.getenv('DISCORD_TOKEN'))  # Load token from environment variable
+bot.run(os.getenv('DISCORD_TOKEN'))
