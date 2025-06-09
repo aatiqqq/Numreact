@@ -20,7 +20,7 @@ async def on_message(message):
         return
 
     if message.content.isdigit():
-        await message.add_reaction('🐪')
+        await message.add_reaction('<:emoji_67:1367207033777946744 >')
     
     content = message.content.strip()
     if re.match(r'^[\d\s+\-*/().]+$', content):
@@ -28,7 +28,7 @@ async def on_message(message):
             expr = content.replace(' ', '')
             result = eval(expr, {"__builtins__": {}}, {})
             if result is not None and result == int(result):
-                await message.add_reaction('🐪')
+                await message.add_reaction('<:emoji_67:1367207033777946744 >')
         except:
             pass
 
