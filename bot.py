@@ -13,8 +13,8 @@ intents.guilds = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-# This regex matches valid arithmetic expressions like: 5+5, 8 - 3, 4 * 2
-ARITHMETIC_REGEX = re.compile(r'^\s*[\d\s+\-*/()]+$')
+# Matches valid arithmetic expressions (numbers and + - * / with optional spaces)
+ARITHMETIC_REGEX = re.compile(r'^\s*[\d+\-*/() ]+\s*$')
 
 @bot.event
 async def on_ready():
@@ -27,10 +27,9 @@ async def on_message(message):
 
     content = message.content.strip()
 
-    # Check if it's a number or a valid arithmetic expression
-    if content.isdigit() or ARITHMETIC_REGEX.fullmatch(content):
+    # Only react if it's an arithmetic expression or a number
+    if ARITHMETIC_REGEX.fullmatch(content):
         emojis = message.guild.emojis
-
         if emojis:
             emoji = random.choice(emojis)
             try:
@@ -38,7 +37,7 @@ async def on_message(message):
             except discord.HTTPException:
                 print(f"Couldn't react with emoji: {emoji}")
         else:
-            print("No custom emojis found.")
+            print("No custom emojis in this server.")
 
     await bot.process_commands(message)
 
