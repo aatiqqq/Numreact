@@ -27,10 +27,12 @@ async def on_message(message):
         return
 
     emojis = message.guild.emojis
-    if emojis:
-        emoji = random.choice(emojis)
+  
 
     if message.content.isdigit():
+        if emojis:
+            emoji = random.choice(emojis)
+
         await message.add_reaction(emoji)
     
     content = message.content.strip()
@@ -39,6 +41,8 @@ async def on_message(message):
             expr = content.replace(' ', '')
             result = eval(expr, {"__builtins__": {}}, {})
             if result is not None and result == int(result):
+                if emojis:
+                    emoji = random.choice(emojis)
                 await message.add_reaction(emoji)
         except:
             pass
