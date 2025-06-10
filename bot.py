@@ -22,14 +22,16 @@ async def on_ready():
     print(f'✅ Logged in as {bot.user}')
 
 @bot.event
+
 async def on_message(message):
     if message.author.bot:
         return
 
-    emojis = message.guild.emojis
   
 
     if message.content.isdigit():
+        emojis = message.guild.emojis
+
         if emojis:
             emoji = random.choice(emojis)
 
@@ -41,6 +43,8 @@ async def on_message(message):
             expr = content.replace(' ', '')
             result = eval(expr, {"__builtins__": {}}, {})
             if result is not None and result == int(result):
+                emojis = message.guild.emojis
+  
                 if emojis:
                     emoji = random.choice(emojis)
                 await message.add_reaction(emoji)
