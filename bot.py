@@ -37,3 +37,5 @@ async def on_message(message):
 load_dotenv()
 keep_alive()
 bot.run(os.getenv('DISCORD_TOKEN'))
+#aatiq
+
